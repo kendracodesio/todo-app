@@ -48,6 +48,9 @@ public class User {
         this.username = username;
     }
 
+    public String getPassword() {
+        return password;
+    }
 
     public void setPassword(String password) {
         this.password = password;
@@ -65,12 +68,12 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof User user)) return false;
-        return isAdmin() == user.isAdmin() && Objects.equals(getUserId(), user.getUserId()) && Objects.equals(getUsername(), user.getUsername());
+        return isAdmin() == user.isAdmin() && Objects.equals(getUserId(), user.getUserId()) && Objects.equals(getUsername(), user.getUsername()) && Objects.equals(getPassword(), user.getPassword());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getUserId(), getUsername(), isAdmin());
+        return Objects.hash(getUserId(), getUsername(), getPassword(), isAdmin());
     }
 
     @Override
