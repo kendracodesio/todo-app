@@ -18,10 +18,6 @@ public class ToDo {
     @Column(name = "is_complete")
     private boolean isComplete;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "category")
-    private Category category;
-
     @ManyToOne
     @JoinColumn(name ="user_id")
     private User createdBy;
@@ -50,13 +46,6 @@ public class ToDo {
         isComplete = complete;
     }
 
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
 
     public User getCreatedBy() {
         return createdBy;
@@ -70,12 +59,12 @@ public class ToDo {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof ToDo toDo)) return false;
-        return isComplete() == toDo.isComplete() && Objects.equals(getId(), toDo.getId()) && Objects.equals(getToDoText(), toDo.getToDoText()) && getCategory() == toDo.getCategory() && Objects.equals(getCreatedBy(), toDo.getCreatedBy());
+        return isComplete() == toDo.isComplete() && Objects.equals(getId(), toDo.getId()) && Objects.equals(getToDoText(), toDo.getToDoText()) && Objects.equals(getCreatedBy(), toDo.getCreatedBy());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getToDoText(), isComplete(), getCategory(), getCreatedBy());
+        return Objects.hash(getId(), getToDoText(), isComplete(), getCreatedBy());
     }
 
     @Override
@@ -84,7 +73,6 @@ public class ToDo {
                 "id=" + id +
                 ", toDoText='" + toDoText + '\'' +
                 ", isComplete=" + isComplete +
-                ", category=" + category +
                 ", createdBy=" + createdBy +
                 '}';
     }

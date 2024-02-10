@@ -15,13 +15,7 @@ public class UserService {
 
 
     //Create an account to hold to-dos
-    public User addUser(User newUser) {
-        if (newUser.getUsername().isBlank()) {
-            throw new IllegalArgumentException("Username is blank");
-        }
-        if (newUser.getPassword().length() < 4) {
-            throw new IllegalArgumentException("Password must be at least 4 characters long");
-        }
+    public User register(User newUser) {
         if (userRepository.findByUsername(newUser.getUsername()).isPresent()) {
             //todo: create custom exception
             //throw new UsernameAlreadyExistsException("Username already exists");
