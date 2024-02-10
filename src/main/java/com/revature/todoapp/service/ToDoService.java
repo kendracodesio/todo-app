@@ -3,6 +3,7 @@ package com.revature.todoapp.service;
 import ch.qos.logback.classic.Logger;
 import com.revature.todoapp.entity.ToDo;
 import com.revature.todoapp.entity.User;
+import com.revature.todoapp.exception.AccessDeniedException;
 import com.revature.todoapp.repository.ToDoRepository;
 import com.revature.todoapp.repository.UserRepository;
 import org.slf4j.LoggerFactory;
@@ -28,8 +29,8 @@ public class ToDoService {
         return toDoRepository.save(newToDo);
     }
 
-    public List<ToDo> getAllToDosByUser(User createdBy) {
-        User user = userRepository.findById(createdBy.getUserId())
+    public List<ToDo> getAllToDosByUserId(Integer userId) {
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
         return toDoRepository.findAllByUser(user);
     }
@@ -58,22 +59,11 @@ public class ToDoService {
             foundToDo.setToDoText(modifiedToDo.getToDoText());
             foundToDo.setComplete(modifiedToDo.isComplete());
         } else {
-            //todo: create custom exception
-            //throw new AccessDeniedException("User mismatch: cannot update ToDo item created by another user.");
+            throw new AccessDeniedException("User mismatch: cannot update ToDo item created by another user.");
         }
         return toDoRepository.save(foundToDo);
 
     }
-
-//    public Integer deleteToDoById(Integer toDoId) {
-//        boolean exists = toDoRepository.existsById(toDoId);
-//        if (exists) {
-//            toDoRepository.deleteById(toDoId);
-//            return 1;
-//        }
-//        return null;
-//    }
-
 
 
 }
