@@ -22,6 +22,17 @@ public class ToDo {
     @JoinColumn(name ="user_id")
     private User createdBy;
 
+    public ToDo() {
+
+    }
+
+    public ToDo(Integer id, String toDoText, boolean isComplete, User createdBy) {
+        this.id = id;
+        this.toDoText = toDoText;
+        this.isComplete = isComplete;
+        this.createdBy = createdBy;
+    }
+
     public Integer getId() {
         return id;
     }

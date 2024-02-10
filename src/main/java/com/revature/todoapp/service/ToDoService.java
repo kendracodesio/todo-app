@@ -59,7 +59,7 @@ public class ToDoService {
             foundToDo.setComplete(modifiedToDo.isComplete());
         } else {
             //todo: create custom exception
-            throw new AccessDeniedException("User mismatch: cannot update ToDo item created by another user.");
+            //throw new AccessDeniedException("User mismatch: cannot update ToDo item created by another user.");
         }
         return toDoRepository.save(foundToDo);
 
