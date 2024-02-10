@@ -4,7 +4,6 @@ import com.revature.todoapp.entity.ToDo;
 import com.revature.todoapp.service.ToDoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -18,9 +17,9 @@ public class ToDoController {
         this.toDoService = toDoService;
     }
 
-    @PostMapping
-    public ResponseEntity<ToDo> addToDo(@RequestBody ToDo toDo) {
-        return ResponseEntity.ok(toDoService.addToDo(toDo));
+    @PostMapping("/users/{userId}/todos")
+    public ResponseEntity<ToDo> addToDo(@PathVariable Integer userId, @RequestBody ToDo toDo){
+        return ResponseEntity.ok(toDoService.addToDo(toDo, userId));
     }
 
     @GetMapping("todos/{toDoId}")

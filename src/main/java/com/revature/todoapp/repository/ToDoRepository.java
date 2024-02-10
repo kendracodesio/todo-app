@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface ToDoRepository extends JpaRepository<ToDo, Integer> {
     // view To-Do's associated with the users account
-    List<ToDo> findAllByUser(User createdBy);
+    List<ToDo> findAllByCreatedBy(User createdBy);
 
 }

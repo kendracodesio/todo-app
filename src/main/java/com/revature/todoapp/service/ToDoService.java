@@ -1,20 +1,16 @@
 package com.revature.todoapp.service;
 
-import ch.qos.logback.classic.Logger;
 import com.revature.todoapp.entity.ToDo;
 import com.revature.todoapp.entity.User;
 import com.revature.todoapp.exception.AccessDeniedException;
 import com.revature.todoapp.repository.ToDoRepository;
 import com.revature.todoapp.repository.UserRepository;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
 public class ToDoService {
-
-    private static final Logger logger = (Logger) LoggerFactory.getLogger(ToDoService.class);
 
     private final ToDoRepository toDoRepository;
     private final UserRepository userRepository;
@@ -25,14 +21,17 @@ public class ToDoService {
         this.userRepository = userRepository;
     }
 
-    public ToDo addToDo(ToDo newToDo) {
+    public ToDo addToDo(ToDo newToDo, Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+        newToDo.setCreatedBy(user);
         return toDoRepository.save(newToDo);
     }
 
     public List<ToDo> getAllToDosByUserId(Integer userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
-        return toDoRepository.findAllByUser(user);
+        return toDoRepository.findAllByCreatedBy(user);
     }
 
 
