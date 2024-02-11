@@ -58,7 +58,7 @@ public class ToDoService {
             foundToDo.setToDoText(modifiedToDo.getToDoText());
             foundToDo.setComplete(modifiedToDo.isComplete());
         } else {
-            throw new AccessDeniedException("User mismatch: cannot update ToDo item created by another user.");
+            throw new AccessDeniedException("Access Denied");
         }
         return toDoRepository.save(foundToDo);
 
